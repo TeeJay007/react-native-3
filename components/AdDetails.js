@@ -63,7 +63,7 @@ class AdDetails extends Component{
                         id: ad.id,
                         willRemove: true
                     })
-                    this.props.navigation.navigate("Visi skelbimai");
+                    this.props.navigation.navigate("Skelbimai");
                 }} />
             </View>
         )

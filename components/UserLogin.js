@@ -25,7 +25,7 @@ class UserLogin extends Component{
 
     async _storeUser(){
         return await SecureStore.setItemAsync('userSettings', JSON.stringify({
-            userName: this.state.remember ? this.state.userName : '',
+            userName: this.state.userName,
             remember: this.state.remember
         })).then(true, false)
     }
@@ -36,14 +36,17 @@ class UserLogin extends Component{
 
     async componentDidMount(){
         const user = await this._loadUserIfExist();
+        console.log(user)
         if(user !== null){
             const userData = JSON.parse(user);
-            loginUser(userData.userName);            
-            this.setState({
-                userName: userData.userName,
-                remember: userData.remember
-            })
-            this.props.navigation.push('Skelbimai');
+            if(userData.remember){
+                loginUser(userData.userName);            
+                this.setState({
+                    userName: userData.userName,
+                    remember: userData.remember
+                })
+                this.props.navigation.push('Skelbimai');
+            }
         }
     }
 
