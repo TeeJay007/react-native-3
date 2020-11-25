@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { addAd } from '../actions/adActions';
 
 
 const AdDisplay = ({item}) => (
@@ -14,14 +13,12 @@ const AdDisplay = ({item}) => (
     </TouchableOpacity>
 )
 
-class AdList extends Component{
+class AdFilteredList extends Component{
     render(){
-        console.log(this.props.filter)
         return(
             <View style={{
                 flex: 1
             }}>
-                <Button title="new" onPress={() => this.props.navigation.push("Naujas skelbimas")} />
                 <FlatList 
                     data={this.props.ads.map(v => ({ad: v, nav: this.props.navigation}))}
                     renderItem={AdDisplay}
@@ -43,7 +40,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default connect(store => {
-    // console.log(store)
-   return ({ads: store.ads})
-}, { addAd })(AdList);
+export default connect(store => ({ads: store.ads.filter(a => a.user === store.user.name)}))(AdFilteredList);

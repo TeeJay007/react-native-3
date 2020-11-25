@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import { deleteAd } from '../actions/adActions';
 
@@ -8,10 +8,24 @@ class AdDetails extends Component{
     constructor(props){
         super(props)
 
+        this._fadeAnim = new Animated.Value(0);
+
         this.state ={
             willRemove: false,
             id: null
         }
+    }
+    
+    _fadeIn = () => {
+        Animated.timing(this._fadeAnim, {
+            toValue: 1,
+            duration: 2000,
+            useNativeDriver: true,
+        }).start();
+    };
+
+    componentDidMount(){
+        this._fadeIn();
     }
 
     componentWillUnmount(){
@@ -30,6 +44,15 @@ class AdDetails extends Component{
             }}>
                 <Text style={styles.title}>{ad.name}</Text>
                 <Text style={styles.description}>{ad.description}</Text>
+                <Animated.View
+                style={[
+                    styles.fadingContainer,
+                    {
+                        opacity: this._fadeAnim, // Bind opacity to animated value
+                    },
+                ]}>
+                    <Text>{ad.user}</Text>
+                </Animated.View>
                 <Button title="Atnaujinti" onPress={() => 
                     this.props.navigation.navigate("Atnaujinti", {
                         id: ad.id
@@ -60,4 +83,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default connect(store => ({ads: store.ads}), {deleteAd})(AdDetails);
+export default connect(store => ({ads: store.ads, user: store.user}), {deleteAd})(AdDetails);

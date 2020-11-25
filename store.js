@@ -1,14 +1,5 @@
-import {createStore} from 'redux';
+import {applyMiddleware, createStore} from 'redux';
 import rootReducer from './reducers';
+import {dbMiddleware} from './sqliteMiddleware';
 
-import * as SQLite from 'expo-sqlite';
-
-
-
-export default createStore(rootReducer, {
-    ads: [{
-        id: -2,
-        name: 'yeyes',
-        description: 'yoyo'
-    }]
-});
+export default createStore(rootReducer, undefined, applyMiddleware(dbMiddleware));

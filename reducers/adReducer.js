@@ -1,11 +1,12 @@
 import {ADD_AD, UPDATE_AD, DELETE_AD} from '../actions/actionTypes';
 
 export default (state = [
-    {
-        id: -1,
-        name: 'yeye',
-        description: 'yoyo'
-    }
+    // {
+    //     id: -1,
+    //     name: 'yeye',
+    //     description: 'yoyo',
+    //     user: 'someuser'
+    // }
 ], action) => {
     switch(action.type){
         case ADD_AD:
@@ -14,7 +15,8 @@ export default (state = [
                 {
                     id: action.payload.id,
                     name: action.payload.name,
-                    description: action.payload.description
+                    description: action.payload.description,
+                    user: action.payload.user
                 }
             ]
         case UPDATE_AD:

@@ -1,13 +1,14 @@
 import {ADD_AD, UPDATE_AD, DELETE_AD} from './actionTypes';
 
-let nextAdId = 0;
+//let nextAdId = 99;
 
-export const addAd = (name, description) => ({
+export const addAd = (name, description, id = undefined, user = undefined) => ({
     type: ADD_AD,
     payload: {
-        id: ++nextAdId,
+        id,
         name,
-        description
+        description,
+        user
     }
 });
 

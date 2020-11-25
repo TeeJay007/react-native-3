@@ -1,3 +1,4 @@
 import {combineReducers} from 'redux';
 import ads from './adReducer';
-export default combineReducers({ads});
+import user from './userReducer';
+export default combineReducers({ads, user});

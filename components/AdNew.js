@@ -36,7 +36,7 @@ class AdNew extends Component{
                 <Text style={styles.formText}>Skelbimo aprašymas:</Text>
                 <TextInput style={styles.textInput} onChangeText={text => this._onDescriptionChange(text)} />
                 <Button title="Pridėti" onPress={() => {
-                    this.props.addAd(this.state.adName, this.state.adDescription)
+                    this.props.addAd(this.state.adName, this.state.adDescription, undefined, this.props.user.name)
                     this.props.navigation.goBack()
                 }}/>
             </View>
@@ -57,4 +57,7 @@ const styles = StyleSheet.create({
     }
 })
 
-export default connect(store => ({ads: store.ads}), {addAd})(AdNew);
+export default connect(store => {
+    console.log(store)
+    return ({ads: store.ads, user: store.user})
+}, {addAd})(AdNew);
